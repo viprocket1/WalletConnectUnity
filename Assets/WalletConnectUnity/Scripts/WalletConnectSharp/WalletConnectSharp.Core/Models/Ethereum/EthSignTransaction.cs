@@ -2,6 +2,9 @@ using Newtonsoft.Json;
 
 namespace WalletConnectSharp.Core.Models.Ethereum
 {
+    /// <summary>
+    /// A JsonRpcRequest that represents eth_signTransaction rpc method
+    /// </summary>
     public sealed class EthSignTransaction : JsonRpcRequest
     {
         [JsonProperty("params")] 

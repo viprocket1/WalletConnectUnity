@@ -414,14 +414,14 @@ namespace WalletConnectSharp.Core
             
             Events.ListenForResponse<R>(data.ID, (sender, @event) =>
             {
-                var response = @event.Response;
+                var response = @event.EventData;
                 if (response.IsError)
                 {
                     eventCompleted.SetException(new IOException(response.Error.Message));
                 }
                 else
                 {
-                    eventCompleted.SetResult(@event.Response);
+                    eventCompleted.SetResult(@event.EventData);
                 }
                 
             });
@@ -464,14 +464,14 @@ namespace WalletConnectSharp.Core
             //Listen for wc_sessionUpdate requests
             Events.ListenFor("wc_sessionUpdate",
                 (object sender, GenericEvent<WCSessionUpdate> @event) =>
-                    HandleSessionUpdate(@event.Response.parameters[0]));
+                    HandleSessionUpdate(@event.EventData.parameters[0]));
 
             //Listen for the "connect" event triggered by 'HandleSessionResponse' above
             //This will have the type WCSessionData
             Events.ListenFor<WCSessionData>("connect",
                 (sender, @event) =>
                 {
-                    eventCompleted.TrySetResult(@event.Response);
+                    eventCompleted.TrySetResult(@event.EventData);
                 });
             
             //Listen for the "session_failed" event triggered by 'HandleSessionResponse' above
@@ -479,14 +479,14 @@ namespace WalletConnectSharp.Core
             Events.ListenFor<ErrorResponse>("session_failed",
                 delegate(object sender, GenericEvent<ErrorResponse> @event)
                 {
-                    if (@event.Response.Message == "Not Approved" || @event.Response.Message == "Session Rejected")
+                    if (@event.EventData.Message == "Not Approved" || @event.EventData.Message == "Session Rejected")
                     {
                         eventCompleted.TrySetCanceled();
                     }
                     else
                     {
                         eventCompleted.TrySetException(
-                            new IOException("WalletConnect: Session Failed: " + @event.Response.Message));
+                            new IOException("WalletConnect: Session Failed: " + @event.EventData.Message));
                     }
                 });
             
@@ -501,17 +501,17 @@ namespace WalletConnectSharp.Core
             return response;
         }
 
-        private void HandleSessionResponse(object sender, JsonRpcResponseEvent<WCSessionRequestResponse> jsonresponse)
+        private void HandleSessionResponse(object sender, JsonRpcEvent<WCSessionRequestResponse> jsonresponse)
         {
-            var response = jsonresponse.Response.result;
+            var response = jsonresponse.EventData.result;
 
             if (response != null && response.approved)
             {
                 HandleSessionUpdate(response);
             }
-            else if (jsonresponse.Response.IsError)
+            else if (jsonresponse.EventData.IsError)
             {
-                HandleSessionDisconnect(jsonresponse.Response.Error.Message, "session_failed");
+                HandleSessionDisconnect(jsonresponse.EventData.Error.Message, "session_failed");
             }
             else
             {

@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 
 namespace WalletConnectSharp.Core.Models
 {
-    public class JsonRpcResponse : IEventSource
+    public class JsonRpcResponse
     {
         [JsonProperty]
         private long id;

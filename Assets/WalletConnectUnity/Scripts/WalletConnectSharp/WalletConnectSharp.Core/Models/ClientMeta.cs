@@ -3,6 +3,9 @@ using Newtonsoft.Json;
 
 namespace WalletConnectSharp.Core.Models
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [Serializable]
     public class ClientMeta
     {

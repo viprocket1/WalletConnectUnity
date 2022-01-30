@@ -271,7 +271,7 @@ namespace WalletConnectSharp.Unity.Network
             };
         }
 
-        public async Task Subscribe<T>(string topic, EventHandler<JsonRpcResponseEvent<T>> callback) where T : JsonRpcResponse
+        public async Task Subscribe<T>(string topic, EventHandler<JsonRpcEvent<T>> callback) where T : JsonRpcResponse
         {
             await Subscribe(topic);
 

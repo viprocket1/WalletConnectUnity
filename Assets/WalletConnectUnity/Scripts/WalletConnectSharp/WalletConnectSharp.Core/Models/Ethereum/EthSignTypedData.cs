@@ -6,6 +6,10 @@ using WalletConnectSharp.Core.Models.Ethereum.Types;
 
 namespace WalletConnectSharp.Core.Models.Ethereum
 {
+    /// <summary>
+    /// A JsonRpcRequest that represents eth_signTypedData rpc method for signing a given Type
+    /// </summary>
+    /// <typeparam name="T">The type of object that needs to be signed</typeparam>
     public sealed class EthSignTypedData<T> : JsonRpcRequest
     {
         [JsonProperty("params")] 

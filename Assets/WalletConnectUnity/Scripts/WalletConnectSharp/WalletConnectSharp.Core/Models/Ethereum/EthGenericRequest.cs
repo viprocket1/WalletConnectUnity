@@ -2,6 +2,11 @@ using Newtonsoft.Json;
 
 namespace WalletConnectSharp.Core.Models.Ethereum
 {
+    /// <summary>
+    /// A generic JsonRpcRequest to represent the common
+    /// format shared among ETH RPC Requests
+    /// </summary>
+    /// <typeparam name="T">The type this JsonRpcRequest parameters are</typeparam>
     public sealed class EthGenericRequest<T> : JsonRpcRequest
     {
         [JsonProperty("params")] 

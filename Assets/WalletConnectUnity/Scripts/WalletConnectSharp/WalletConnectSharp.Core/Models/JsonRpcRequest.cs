@@ -3,7 +3,7 @@ using WalletConnectSharp.Core.Utils;
 
 namespace WalletConnectSharp.Core.Models
 {
-    public class JsonRpcRequest : IEventSource
+    public class JsonRpcRequest
     {
         [JsonProperty]
         private long id;

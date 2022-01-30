@@ -3,6 +3,10 @@ using WalletConnectSharp.Core.Models.Ethereum.Types;
 
 namespace WalletConnectSharp.Core.Models
 {
+    /// <summary>
+    /// A class that represents an EIP712 domain that can be passed into the EvmTypedData class. This must be used
+    /// when using EthSignTypedData
+    /// </summary>
     public class EIP712Domain
     {
         public string name;

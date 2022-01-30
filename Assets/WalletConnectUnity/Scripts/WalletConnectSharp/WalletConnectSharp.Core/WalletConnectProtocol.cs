@@ -241,7 +241,7 @@ namespace WalletConnectSharp.Core
             
             Events.ListenForGenericResponse<TR>(requestId, (sender, args) =>
             {
-                response.SetResult(args.Response);
+                response.SetResult(args.EventData);
             });
 
             await SendRequest(requestObject, sendingTopic, forcePushNotification);

@@ -2,6 +2,9 @@ using Newtonsoft.Json;
 
 namespace WalletConnectSharp.Core.Models.Ethereum
 {
+    /// <summary>
+    /// A JsonRpcRequest to represent personal_sign rpc method
+    /// </summary>
     public sealed class EthPersonalSign : JsonRpcRequest
     {
         [JsonProperty("params")] 

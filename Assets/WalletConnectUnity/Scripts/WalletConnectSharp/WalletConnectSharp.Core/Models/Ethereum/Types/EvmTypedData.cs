@@ -5,8 +5,21 @@ using System.Runtime.Serialization;
 
 namespace WalletConnectSharp.Core.Models.Ethereum.Types
 {
+    /// <summary>
+    /// The EvmTypedData class can be used to serialize/deserialize generic classes into an
+    /// manner that is compatible with EthSignTypedData.
+    ///
+    /// This is mainly being used for EthSignTypedData, as such an EIP712Domain object is required
+    /// to encode any custom class.
+    ///
+    /// This class may be used for ABI encoding/decoding of structs at some point
+    /// </summary>
+    /// <typeparam name="T">The type T that will be encoded</typeparam>
     public class EvmTypedData<T>
     {
+        /// <summary>
+        /// A static mapping of common c# types to their EVM equivalent
+        /// </summary>
         public static readonly Dictionary<Type, string> TypeMap = new Dictionary<Type, string>()
         {
             {typeof(Address), "address"},
@@ -37,6 +50,11 @@ namespace WalletConnectSharp.Core.Models.Ethereum.Types
             AddTypeData(typeof(T));
         }
 
+        /// <summary>
+        /// Add a custom type to this definition
+        /// </summary>
+        /// <param name="type">The type to encode into this definition</param>
+        /// <exception cref="SerializationException">Whether the type could not be encoded into this definition</exception>
         public void AddTypeData(Type type)
         {
             var tname = type.Name;
